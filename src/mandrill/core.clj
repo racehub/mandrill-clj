@@ -32,15 +32,11 @@
   "Post data or Get req data for Mandrill."
   {s/Any s/Any})
 
-(s/defschema RequestOptions
+(s/defschema ApiCall
   {(s/optional-key :out-ch) (s/either (s/eq :ignore) (ms/Channel))
    (s/optional-key :mandrill-params) MandrillParams
    (s/optional-key :client-options) HttpKitOptions
    (s/optional-key :token) ApiToken})
-
-(s/defschema ApiCall
-  (assoc RequestOptions
-    :endpoint s/Str))
 
 (def Address
   "TODO: Have this actually use a schema that detects if we're dealing
@@ -135,7 +131,7 @@
   ([email :- Email]
      (send-message email {}))
   ([{:keys [to-email subject body from] :as email} :- Email
-     opts :- RequestOptions]
+     opts :- ApiCall]
      (let [{from-email :email from-name :name} from]
        (when-let [to-email (not-empty (ms/collectify to-email))]
          (let [message {:html (mail body)
@@ -167,7 +163,7 @@
   ([template :- Template]
      (send-template template {}))
   ([{:keys [template message content]} :- Template
-    opts :- RequestOptions]
+    opts :- ApiCall]
      (api-call "messages/send-template"
                {assoc opts
                 :mandrill-params {:template_name template
@@ -179,8 +175,8 @@
 
   See: https://mandrillapp.com/api/docs/users.html#method=info"
   ([] (user-info {}))
-  ([opts :- RequestOptions]
-     (api-call key "users/info" opts)))
+  ([opts :- ApiCall]
+     (api-call "users/info" opts)))
 
 (s/defn ping :- (ms/Async)
   "Validate an API key and respond to a ping.
@@ -189,8 +185,8 @@
 
   https://mandrillapp.com/api/docs/users.html#method=ping"
   ([] (ping {}))
-  ([opts :- RequestOptions]
-     (api-call key "users/ping" opts)))
+  ([opts :- ApiCall]
+     (api-call "users/ping" opts)))
 
 (s/defn senders :- (ms/Async)
   "Return the senders that have tried to use this account, both
@@ -200,5 +196,5 @@
 
   https://mandrillapp.com/api/docs/users.html#method=senders"
   ([] (senders {}))
-  ([opts :- RequestOptions]
-     (api-call key "users/senders" opts)))
+  ([opts :- ApiCall]
+     (api-call "users/senders" opts)))
