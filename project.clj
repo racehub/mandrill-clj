@@ -1,4 +1,4 @@
-(defproject racehub/mandrill-clj "0.1.0-SNAPSHOT"
+(defproject racehub/mandrill-clj "0.1.0"
   :description "Schemafied Mandrill bindings for Clojure."
   :url "https://github.com/racehub/mandrill-clj"
   :license {:name "Eclipse Public License"
