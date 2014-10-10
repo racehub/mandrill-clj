@@ -13,7 +13,7 @@ Here's the latest Leiningen version info:
 You'll need this in your environment:
 
 ```sh
-export MANDRILL_DEV_TOKEN="mandrill_dev_token"
+export MANDRILL_TOKEN="dev-token"
 ```
 
 ## License

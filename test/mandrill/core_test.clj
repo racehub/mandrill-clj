@@ -1,10 +1,7 @@
 (ns mandrill.core-test
   (:use clojure.test
         mandrill.core)
-  (:require [clojure.core.async :as a]
-            [mandrill.test :as t]))
-
-(use-fixtures :once t/env-token)
+  (:require [clojure.core.async :as a]))
 
 (deftest ping-test
   (is (= "PONG!" (ping)) "Ping returns a pong, synchronously.")

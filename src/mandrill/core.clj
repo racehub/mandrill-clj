@@ -2,8 +2,9 @@
   "Methods for interacting with the Mandrill API."
   (:require [cheshire.core :as json]
             [clojure.core.async :as a]
-            [org.httpkit.client :as http]
+            [environ.core :as e]
             [mandrill.schema :as ms]
+            [org.httpkit.client :as http]
             [schema.core :as s])
   (:import [clojure.lang ISeq]))
 
@@ -64,6 +65,7 @@
 
 (s/defn api-token :- (s/maybe ApiToken)
   []
+  (or *token* (:mandrill-token e/env))
   *token*)
 
 (defmacro with-token [k & forms]
