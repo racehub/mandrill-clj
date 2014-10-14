@@ -65,8 +65,7 @@
 
 (s/defn api-token :- (s/maybe ApiToken)
   []
-  (or *token* (:mandrill-token e/env))
-  *token*)
+  (or *token* (:mandrill-token e/env)))
 
 (defmacro with-token [k & forms]
   `(binding [*token* ~k]
