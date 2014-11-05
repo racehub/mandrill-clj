@@ -15,6 +15,10 @@ You'll need this in your environment:
 ```sh
 export MANDRILL_TOKEN="dev-token"
 ```
+## Authors
+
+- Sam Ritchie <https://twitter.com/sritchie>
+- Dave Petrovics <https://github.com/dpetrovics>
 
 ## License
 
